@@ -1,15 +1,204 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Garfield</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garfield le Pirate Dansant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #A52A2A, #FF69B4); /* Marron et Rose vif */
+            overflow: hidden; /* Empêche les barres de défilement */
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .scene {
+            position: relative;
+            width: 800px; /* Plus large pour une meilleure vue */
+            height: 600px; /* Hauteur de la scène */
+        }
+
+        .plage {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%; /* Plus haute pour que le pirate ait de la place pour danser */
+            background-color: #ADFF2F; /* Vert Chartreuse */
+            border-top: 5px solid #FFD700;
+            border-radius: 10px 10px 0 0;
+            /* Ajout de formes sur la plage */
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 95%, 60% 85%, 40% 95%, 20% 80%, 0 100%);
+        }
+
+        .mer {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background-color: #FF4500; /* Orange foncé */
+            animation: vague 5s infinite alternate, vague2 7s infinite alternate; /* Ajout de deux animations pour plus de complexité */
+            border-radius: 0 0 10px 10px 0 0;
+            /* Ajout de formes à la mer */
+            clip-path: polygon(0 20%, 20% 30%, 40% 25%, 60% 35%, 80% 30%, 100% 20%, 100% 100%, 0 100%);
+        }
+
+        @keyframes vague {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); } /* Vagues plus hautes */
+        }
+
+        @keyframes vague2 {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        #pirate {
+            position: absolute;
+            bottom: 20%; /* Le pirate est placé plus haut */
+            left: 30%;
+            width: 150px; /* Taille du pirate */
+            height: auto;
+            animation: dansePirate 2s infinite, brasPirate 0.6s infinite alternate; /* Ajout d'une animation pour les bras */
+            transform-origin: 50% 100%; /* Important pour la rotation de la danse */
+        }
+
+        @keyframes dansePirate {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                transform: rotate(0deg);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes brasPirate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(20deg); /* Les bras se balancent un peu plus */
+            }
+        }
+
+        .cocotier {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: auto;
+        }
+
+        .soleil {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 80px;
+            height: auto;
+            animation: rotationSoleil 10s infinite linear;
+        }
+
+        @keyframes rotationSoleil {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Styles pour les émojis 3D (ajustement de la taille) */
+        #pirate img {
+            width: 100%; /* L'image remplit le conteneur #pirate */
+            height: auto;
+        }
+        .cocotier img {
+            width: 100%;
+            height: auto;
+        }
+        .soleil img {
+            width: 100%;
+            height: auto;
+        }
+
+        .texte-milieu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: #FFF;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+            text-align: center;
+            /* Ajout des animations sur le texte */
+            animation: fadeIn 2s infinite alternate,
+                       pulse 2s infinite alternate,
+                       slideIn 1s infinite alternate,
+                       colorChange 3s infinite alternate,
+                       fontChange 2s infinite alternate,
+                       bounce 1s infinite alternate,
+                       fontChange2 1s infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-50px); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes colorChange {
+            0% { color: #FFF; }
+            25% { color: #FFFF00; }
+            50% { color: #FF00FF; }
+            75% { color: #00FFFF; }
+            100% { color: #FFF; }
+        }
+
+        @keyframes fontChange {
+            0%, 100% { font-family: 'Press Start 2P', cursive; }
+            50% { font-family: 'Arial', sans-serif; }
+        }
+        @keyframes fontChange2 {
+            0%, 100% { font-family: 'Arial', sans-serif; }
+            50% { font-family: 'Comic Sans MS', cursive; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+    </style>
 </head>
 <body>
+    <div class="scene">
+        <div class="mer"></div>
+        <div class="plage"></div>
+        <div id="pirate">
+            <img src="https://i.pinimg.com/originals/36/69/82/36698270a51a0c4129847dbfca2e068b.gif" alt="Pirate 3D">
+        </div>
+        <div class="cocotier">
+            <img src="https://img.freepik.com/psd-premium/illustration-cocotier-3d-element-conception-theme-ete-rendering-3d_574171-82.jpg?semt=ais_hybrid" alt="Cocotier 3D">
+        </div>
+        <div class="soleil">
+            <img src="https://static.vecteezy.com/system/resources/previews/022/207/045/non_2x/3d-sun-emoji-happy-sun-funny-cute-character-free-png.png" alt="Soleil 3D">
+        </div>
+        <div class="texte-milieu">
+            Mon Portfolio est en cours de développement !!!
+        </div>
+    </div>
 </body>
-<script src="main.js"></script>
 </html>
-
